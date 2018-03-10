@@ -55,20 +55,21 @@ namespace SubShop
             sandwichTextBox.Lines = ShopSystem.CurrentOrder.CurrentSub.ToStringArray();
         }
 
-        private void UpdateOrderTextBox()
+        private void UpdateOrderTextBox() // putting code into customer order tostringarray()
         {
-            int sandwichCounter = 0;
-            StringBuilder orderString = new StringBuilder();
+            //int sandwichCounter = 0;
+            //StringBuilder orderString = new StringBuilder();
 
-            if (ShopSystem.CurrentOrder.CustomerSubs.Count > 0)
-            {
-                foreach (CustomerOrder.Sandwich sandwich in ShopSystem.CurrentOrder.CustomerSubs)
-                {
-                    ++sandwichCounter;
-                    orderString.Append("Sandwich " + sandwichCounter + ",");
-                }
-                orderTextBox.Lines = orderString.ToString().Trim().Split(',');
-            }
+            //if (ShopSystem.CurrentOrder.CustomerSubs.Count > 0)
+            //{
+            //    foreach (CustomerOrder.Sandwich sandwich in ShopSystem.CurrentOrder.CustomerSubs)
+            //    {
+            //        ++sandwichCounter;
+            //        orderString.Append("Sandwich " + sandwichCounter + ",");
+            //    }
+            //    orderTextBox.Lines = orderString.ToString().Trim().Split(',');
+            //}
+            orderTextBox.Lines = ShopSystem.CurrentOrder.ToStringArray();
         }
 
         private void BreadButton_Click(object sender, EventArgs e)
