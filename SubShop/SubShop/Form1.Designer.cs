@@ -83,6 +83,9 @@
             this.button45 = new System.Windows.Forms.Button();
             this.cancelOrderButton = new System.Windows.Forms.Button();
             this.sandwichDetailGroupBox = new System.Windows.Forms.GroupBox();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.beginOrderButton = new System.Windows.Forms.Button();
+            this.viewInventoryButton = new System.Windows.Forms.Button();
             this.orderPanel.SuspendLayout();
             this.breadGroupBox.SuspendLayout();
             this.meatGroupBox.SuspendLayout();
@@ -90,6 +93,7 @@
             this.toppingGroupBox.SuspendLayout();
             this.orderDetailGroupBox.SuspendLayout();
             this.sandwichDetailGroupBox.SuspendLayout();
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // orderPanel
@@ -100,11 +104,12 @@
             this.orderPanel.Controls.Add(this.cheeseGroupBox);
             this.orderPanel.Controls.Add(this.meatGroupBox);
             this.orderPanel.Controls.Add(this.breadGroupBox);
-            this.orderPanel.Location = new System.Drawing.Point(14, 14);
+            this.orderPanel.Location = new System.Drawing.Point(14, 13);
             this.orderPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.orderPanel.Name = "orderPanel";
             this.orderPanel.Size = new System.Drawing.Size(934, 716);
             this.orderPanel.TabIndex = 0;
+            this.orderPanel.Visible = false;
             this.orderPanel.VisibleChanged += new System.EventHandler(this.orderPanel_VisibleChanged);
             // 
             // breadGroupBox
@@ -227,7 +232,7 @@
             this.pepperoniButton.TabIndex = 5;
             this.pepperoniButton.Text = "Pepperoni";
             this.pepperoniButton.UseVisualStyleBackColor = false;
-            this.pepperoniButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.pepperoniButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // salamiButton
             // 
@@ -239,7 +244,7 @@
             this.salamiButton.TabIndex = 4;
             this.salamiButton.Text = "Salami";
             this.salamiButton.UseVisualStyleBackColor = false;
-            this.salamiButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.salamiButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // turkeyButton
             // 
@@ -251,7 +256,7 @@
             this.turkeyButton.TabIndex = 3;
             this.turkeyButton.Text = "Turkey";
             this.turkeyButton.UseVisualStyleBackColor = false;
-            this.turkeyButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.turkeyButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // chickenButton
             // 
@@ -263,7 +268,7 @@
             this.chickenButton.TabIndex = 2;
             this.chickenButton.Text = "Chicken";
             this.chickenButton.UseVisualStyleBackColor = false;
-            this.chickenButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.chickenButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // hamButton
             // 
@@ -275,7 +280,7 @@
             this.hamButton.TabIndex = 1;
             this.hamButton.Text = "Ham";
             this.hamButton.UseVisualStyleBackColor = false;
-            this.hamButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.hamButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // beefButton
             // 
@@ -287,7 +292,7 @@
             this.beefButton.TabIndex = 0;
             this.beefButton.Text = "Roast Beef";
             this.beefButton.UseVisualStyleBackColor = false;
-            this.beefButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.beefButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // tunaButton
             // 
@@ -299,7 +304,7 @@
             this.tunaButton.TabIndex = 7;
             this.tunaButton.Text = "Tuna";
             this.tunaButton.UseVisualStyleBackColor = false;
-            this.tunaButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.tunaButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // meatballButton
             // 
@@ -311,7 +316,7 @@
             this.meatballButton.TabIndex = 6;
             this.meatballButton.Text = "Meatball";
             this.meatballButton.UseVisualStyleBackColor = false;
-            this.meatballButton.Click += new System.EventHandler(this.MeatButton_Click);
+            this.meatballButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // cheeseGroupBox
             // 
@@ -342,7 +347,7 @@
             this.mozarellaButton.TabIndex = 5;
             this.mozarellaButton.Text = "Mozzarella";
             this.mozarellaButton.UseVisualStyleBackColor = false;
-            this.mozarellaButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.mozarellaButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // provoloneButton
             // 
@@ -354,7 +359,7 @@
             this.provoloneButton.TabIndex = 4;
             this.provoloneButton.Text = "Provolone";
             this.provoloneButton.UseVisualStyleBackColor = false;
-            this.provoloneButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.provoloneButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // montereyButton
             // 
@@ -366,7 +371,7 @@
             this.montereyButton.TabIndex = 3;
             this.montereyButton.Text = "Monterey Cheddar";
             this.montereyButton.UseVisualStyleBackColor = false;
-            this.montereyButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.montereyButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // cheddarButton
             // 
@@ -378,7 +383,7 @@
             this.cheddarButton.TabIndex = 2;
             this.cheddarButton.Text = "Cheddar";
             this.cheddarButton.UseVisualStyleBackColor = false;
-            this.cheddarButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.cheddarButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // swissButton
             // 
@@ -390,7 +395,7 @@
             this.swissButton.TabIndex = 1;
             this.swissButton.Text = "Swiss";
             this.swissButton.UseVisualStyleBackColor = false;
-            this.swissButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.swissButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // americanButton
             // 
@@ -402,7 +407,7 @@
             this.americanButton.TabIndex = 0;
             this.americanButton.Text = "American";
             this.americanButton.UseVisualStyleBackColor = false;
-            this.americanButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.americanButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // toppingGroupBox
             // 
@@ -443,7 +448,7 @@
             this.lettuceButton.TabIndex = 7;
             this.lettuceButton.Text = "Lettuce";
             this.lettuceButton.UseVisualStyleBackColor = false;
-            this.lettuceButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.lettuceButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // tomatoButton
             // 
@@ -455,7 +460,7 @@
             this.tomatoButton.TabIndex = 6;
             this.tomatoButton.Text = "Tomato";
             this.tomatoButton.UseVisualStyleBackColor = false;
-            this.tomatoButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.tomatoButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // greenPepperButton
             // 
@@ -467,7 +472,7 @@
             this.greenPepperButton.TabIndex = 5;
             this.greenPepperButton.Text = "Green Pepper";
             this.greenPepperButton.UseVisualStyleBackColor = false;
-            this.greenPepperButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.greenPepperButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // bananaPepperButton
             // 
@@ -479,7 +484,7 @@
             this.bananaPepperButton.TabIndex = 4;
             this.bananaPepperButton.Text = "Banana Pepper";
             this.bananaPepperButton.UseVisualStyleBackColor = false;
-            this.bananaPepperButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.bananaPepperButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // oilButton
             // 
@@ -491,7 +496,7 @@
             this.oilButton.TabIndex = 3;
             this.oilButton.Text = "Oil";
             this.oilButton.UseVisualStyleBackColor = false;
-            this.oilButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.oilButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // vinegarButton
             // 
@@ -503,7 +508,7 @@
             this.vinegarButton.TabIndex = 2;
             this.vinegarButton.Text = "Vinegar";
             this.vinegarButton.UseVisualStyleBackColor = false;
-            this.vinegarButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.vinegarButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // onionButton
             // 
@@ -515,7 +520,7 @@
             this.onionButton.TabIndex = 1;
             this.onionButton.Text = "Onion";
             this.onionButton.UseVisualStyleBackColor = false;
-            this.onionButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.onionButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // spincachButton
             // 
@@ -527,7 +532,7 @@
             this.spincachButton.TabIndex = 0;
             this.spincachButton.Text = "Spinach";
             this.spincachButton.UseVisualStyleBackColor = false;
-            this.spincachButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.spincachButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // jalapenoButton
             // 
@@ -539,7 +544,7 @@
             this.jalapenoButton.TabIndex = 15;
             this.jalapenoButton.Text = "Jalapeno";
             this.jalapenoButton.UseVisualStyleBackColor = false;
-            this.jalapenoButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.jalapenoButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // oliveButton
             // 
@@ -551,7 +556,7 @@
             this.oliveButton.TabIndex = 14;
             this.oliveButton.Text = "Olive";
             this.oliveButton.UseVisualStyleBackColor = false;
-            this.oliveButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.oliveButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // vinaigretteButton
             // 
@@ -563,7 +568,7 @@
             this.vinaigretteButton.TabIndex = 13;
             this.vinaigretteButton.Text = "Vinaigrette";
             this.vinaigretteButton.UseVisualStyleBackColor = false;
-            this.vinaigretteButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.vinaigretteButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // mayoButton
             // 
@@ -575,7 +580,7 @@
             this.mayoButton.TabIndex = 12;
             this.mayoButton.Text = "Mayonnaise";
             this.mayoButton.UseVisualStyleBackColor = false;
-            this.mayoButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.mayoButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // cucumberButton
             // 
@@ -587,7 +592,7 @@
             this.cucumberButton.TabIndex = 11;
             this.cucumberButton.Text = "Cucumber";
             this.cucumberButton.UseVisualStyleBackColor = false;
-            this.cucumberButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.cucumberButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // carrotButton
             // 
@@ -599,7 +604,7 @@
             this.carrotButton.TabIndex = 10;
             this.carrotButton.Text = "Carrot";
             this.carrotButton.UseVisualStyleBackColor = false;
-            this.carrotButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.carrotButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // pickleButton
             // 
@@ -611,7 +616,7 @@
             this.pickleButton.TabIndex = 9;
             this.pickleButton.Text = "Pickle";
             this.pickleButton.UseVisualStyleBackColor = false;
-            this.pickleButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.pickleButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // avocadoButton
             // 
@@ -623,7 +628,7 @@
             this.avocadoButton.TabIndex = 8;
             this.avocadoButton.Text = "Avocado";
             this.avocadoButton.UseVisualStyleBackColor = false;
-            this.avocadoButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.avocadoButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // glutenFreeButton
             // 
@@ -659,7 +664,7 @@
             this.fetaButton.TabIndex = 7;
             this.fetaButton.Text = "Feta";
             this.fetaButton.UseVisualStyleBackColor = false;
-            this.fetaButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.fetaButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // pepperjackButton
             // 
@@ -671,7 +676,7 @@
             this.pepperjackButton.TabIndex = 6;
             this.pepperjackButton.Text = "Pepperjack";
             this.pepperjackButton.UseVisualStyleBackColor = false;
-            this.pepperjackButton.Click += new System.EventHandler(this.CheeseButton_Click);
+            this.pepperjackButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // mustardButton
             // 
@@ -683,7 +688,7 @@
             this.mustardButton.TabIndex = 16;
             this.mustardButton.Text = "Mustard";
             this.mustardButton.UseVisualStyleBackColor = false;
-            this.mustardButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.mustardButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // honeyMustardButton
             // 
@@ -695,7 +700,7 @@
             this.honeyMustardButton.TabIndex = 17;
             this.honeyMustardButton.Text = "Honey Mustard";
             this.honeyMustardButton.UseVisualStyleBackColor = false;
-            this.honeyMustardButton.Click += new System.EventHandler(this.ToppingButton_Click);
+            this.honeyMustardButton.Click += new System.EventHandler(this.IngredientButton_Click);
             // 
             // button43
             // 
@@ -801,11 +806,41 @@
             this.sandwichDetailGroupBox.TabStop = false;
             this.sandwichDetailGroupBox.Text = "Sandwich Details";
             // 
+            // mainPanel
+            // 
+            this.mainPanel.Controls.Add(this.viewInventoryButton);
+            this.mainPanel.Controls.Add(this.beginOrderButton);
+            this.mainPanel.Location = new System.Drawing.Point(12, 12);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(934, 716);
+            this.mainPanel.TabIndex = 1;
+            // 
+            // beginOrderButton
+            // 
+            this.beginOrderButton.Location = new System.Drawing.Point(3, 483);
+            this.beginOrderButton.Name = "beginOrderButton";
+            this.beginOrderButton.Size = new System.Drawing.Size(461, 230);
+            this.beginOrderButton.TabIndex = 0;
+            this.beginOrderButton.Text = "Begin Order";
+            this.beginOrderButton.UseVisualStyleBackColor = true;
+            this.beginOrderButton.Click += new System.EventHandler(this.MainButton_Click);
+            // 
+            // viewInventoryButton
+            // 
+            this.viewInventoryButton.Location = new System.Drawing.Point(470, 483);
+            this.viewInventoryButton.Name = "viewInventoryButton";
+            this.viewInventoryButton.Size = new System.Drawing.Size(461, 230);
+            this.viewInventoryButton.TabIndex = 1;
+            this.viewInventoryButton.Text = "View Inventory";
+            this.viewInventoryButton.UseVisualStyleBackColor = true;
+            this.viewInventoryButton.Click += new System.EventHandler(this.MainButton_Click);
+            // 
             // SubShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 743);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.orderPanel);
             this.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -821,6 +856,7 @@
             this.orderDetailGroupBox.PerformLayout();
             this.sandwichDetailGroupBox.ResumeLayout(false);
             this.sandwichDetailGroupBox.PerformLayout();
+            this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -882,6 +918,9 @@
         private System.Windows.Forms.Button herbBreadButton;
         private System.Windows.Forms.Button italianBreadButton;
         private System.Windows.Forms.GroupBox sandwichDetailGroupBox;
+        private System.Windows.Forms.Panel mainPanel;
+        private System.Windows.Forms.Button viewInventoryButton;
+        private System.Windows.Forms.Button beginOrderButton;
     }
 }
 

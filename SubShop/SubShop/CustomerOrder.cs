@@ -8,7 +8,7 @@ namespace SubShop
 {
     class CustomerOrder
     {
-        // declarations
+        // inner class
         public class Sandwich
         {
             // properties
@@ -129,30 +129,61 @@ namespace SubShop
                 return sandwichPrice;
             }
 
+            public string OrderTextBoxHelper()
+            {
+                StringBuilder helperString = new StringBuilder();
+
+                if (!(Bread.ItemName == "None"))
+                    helperString.Append(string.Format("  {0},", Bread.ItemName));
+                else
+                    helperString.Append("  No Bread,");
+
+                foreach (ShopInventory.InventoryItem meatIngredient in Meat)
+                    if (!(Meat[0].ItemName == "None"))
+                        helperString.Append(String.Format("  {0},", meatIngredient.ItemName));
+
+                foreach (ShopInventory.InventoryItem cheeseIngredient in Cheese)
+                    if (!(Cheese[0].ItemName == "None"))
+                        helperString.Append(String.Format("  {0},", cheeseIngredient.ItemName));
+
+                foreach (ShopInventory.InventoryItem toppingIngredient in Toppings)
+                    if (!(Toppings[0].ItemName == "None"))
+                        helperString.Append(String.Format("  {0},", toppingIngredient.ItemName));
+
+                return helperString.ToString();
+            }
+
             public string[] ToStringArray()
             {
                 StringBuilder sandwichString = new StringBuilder();
 
-                //sandwichString.Append(String.Format("{0,-30}", "Toppings:") + ",");
                 sandwichString.Append("Bread:,");
-                sandwichString.Append(String.Format("  {0,-25}{1},", Bread.ItemName, Bread.ItemPrice));
+                sandwichString.Append(String.Format("  {0,-25}{1},", 
+                    Bread.ItemName, 
+                    Bread.ItemPrice));
 
-                //sandwichString.Append(String.Format("{0,-30}", "Meat:") + ",");
                 sandwichString.Append("Meat:,");
                 foreach (ShopInventory.InventoryItem meatIngredient in Meat)
-                    sandwichString.Append(String.Format("  {0,-25}{1},", meatIngredient.ItemName, meatIngredient.ItemPrice));
+                    sandwichString.Append(String.Format("  {0,-25}{1},", 
+                        meatIngredient.ItemName, 
+                        meatIngredient.ItemPrice));
 
-                //sandwichString.Append(String.Format("{0,-30}", "Cheese:") + ",");
                 sandwichString.Append("Cheese:,");
                 foreach (ShopInventory.InventoryItem cheeseIngredient in Cheese)
-                    sandwichString.Append(String.Format("  {0,-25}{1},", cheeseIngredient.ItemName, cheeseIngredient.ItemPrice));
+                    sandwichString.Append(String.Format("  {0,-25}{1},", 
+                        cheeseIngredient.ItemName, 
+                        cheeseIngredient.ItemPrice));
 
-                //sandwichString.Append(String.Format("{0,-30}", "Toppings:") + ",");
                 sandwichString.Append("Toppings:,");
                 foreach (ShopInventory.InventoryItem toppingsIngredient in Toppings)
-                    sandwichString.Append(String.Format("  {0,-25}{1},", toppingsIngredient.ItemName, toppingsIngredient.ItemPrice));
+                    sandwichString.Append(String.Format("  {0,-25}{1},", 
+                        toppingsIngredient.ItemName, 
+                        toppingsIngredient.ItemPrice));
 
-                return sandwichString.ToString().Trim().Split(',');
+                return sandwichString
+                    .ToString()
+                    .Trim()
+                    .Split(',');
             }
         }
 
@@ -182,9 +213,15 @@ namespace SubShop
             CustomerSubs.Add(CurrentSub);
         }
 
+        public void CancelOrder()
+        {
+            foreach (Sandwich sub in CustomerSubs)
+                sub.UndoUseIngredients();
+        }
+
         public void GetPayment()
         {
-
+            // ???
         }
 
         public string[] ToStringArray()
@@ -194,16 +231,18 @@ namespace SubShop
 
             if (CustomerSubs.Count > 0)
             {
-                foreach (Sandwich sandwich in CustomerSubs)
+                foreach (Sandwich orderSandwich in CustomerSubs)
                 {
                     ++sandwichCounter;
-                    //orderString.Append("Sandwich " + sandwichCounter + ",");
-                    //
-                    //sandwichString.Append("Bread:,");
-                    orderString.Append(String.Format("Sandwich {0,-18}{1},", sandwichCounter, sandwich.SubPrice));
-                    //
+                    orderString.Append(String.Format("Sandwich {0,-18}{1},", 
+                        sandwichCounter, 
+                        orderSandwich.SubPrice));
+                    orderString.Append(orderSandwich.OrderTextBoxHelper());
                 }
-                return (orderString.ToString().Trim().Split(','));
+                return (orderString
+                    .ToString()
+                    .Trim()
+                    .Split(','));
             }
             return new string[0];
         }
@@ -217,6 +256,12 @@ namespace SubShop
                 orderString.Append(sub.ToString() + "\n");
 
             return orderString.ToString();
+        }
+
+        public void DebugInventory()
+        {
+            foreach (ShopInventory.InventoryItem item in InventorySource.Inventory["Bread"].Values)
+                Console.WriteLine("{0}: {1}", item.ItemName, item.ItemQty);
         }
     }
 }

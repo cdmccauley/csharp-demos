@@ -8,29 +8,15 @@ namespace SubShop
 {
     public class ShopInventory
     {
+        // inner class
         public class InventoryItem
         {
-            private string itemName;
-            private decimal itemPrice;
-            private int itemQty;
+            // properties
+            public string ItemName { get; private set; }
 
-            public string ItemName
-            {
-                get => itemName;
-                private set => itemName = value;
-            }
+            public decimal ItemPrice { get; private set; }
 
-            public decimal ItemPrice
-            {
-                get => itemPrice;
-                private set => itemPrice = value;
-            }
-
-            public int ItemQty
-            {
-                get => itemQty;
-                private set => itemQty = value;
-            }
+            public int ItemQty { get; private set; }
 
             // constructor
             public InventoryItem(string name, decimal price, int quantity)
@@ -58,11 +44,16 @@ namespace SubShop
             }
         }
 
+        // declarations
         private const decimal BREAD_PRICE = 1.00M;
-        private const decimal MEAT_PRICE = 1.00M;
-        private const decimal CHEESE_PRICE = 1.00M;
-        private const decimal TOPPING_PRICE = 0.25M;
 
+        private const decimal MEAT_PRICE = 1.50M;
+
+        private const decimal CHEESE_PRICE = 0.75M;
+
+        private const decimal TOPPING_PRICE = 0.10M;
+
+        // properties
         public Dictionary<String, Dictionary<String, InventoryItem>> Inventory { get; private set; }
 
         // constructor
@@ -80,7 +71,7 @@ namespace SubShop
             Inventory["Bread"].Add("Whole Wheat", new InventoryItem("Whole Wheat", BREAD_PRICE, 1));
             Inventory["Bread"].Add("Marble Rye", new InventoryItem("Marble Rye", BREAD_PRICE, 1));
             Inventory["Bread"].Add("Sourdough", new InventoryItem("Sourdough", BREAD_PRICE, 1));
-            Inventory["Bread"].Add("Foccacia", new InventoryItem("Focaccia", BREAD_PRICE, 1));
+            Inventory["Bread"].Add("Focaccia", new InventoryItem("Focaccia", BREAD_PRICE, 1));
             Inventory["Bread"].Add("Flatbread", new InventoryItem("Flatbread", BREAD_PRICE, 1));
             Inventory["Bread"].Add("Gluten-Free", new InventoryItem("Gluten-Free", BREAD_PRICE, 1));
 
@@ -125,6 +116,7 @@ namespace SubShop
             Inventory["Topping"].Add("Honey Mustard", new InventoryItem("Honey Mustard", TOPPING_PRICE, 25));
         }
 
+        // methods
         public string[] GetOutOfStock()
         {
             StringBuilder outOfStockItems = new StringBuilder();
@@ -135,30 +127,20 @@ namespace SubShop
                         outOfStockItems.Append(item.ItemName + ",");
 
             if (!(outOfStockItems.ToString() == string.Empty))
-                return outOfStockItems.ToString().Trim(',').Split(',');
+            {
+                Console.WriteLine(outOfStockItems.ToString()); // DEBUG
+                return outOfStockItems
+                    .ToString()
+                    .Trim(',')
+                    .Split(',');
+            }
             else
                 return new string[0];
         }
 
-        public void UseItem(InventoryItem item) // break validation into another method
+        public void RestockInventory(int stockQty)
         {
-            //if (Inventory["Bread"].ContainsKey(item) && Inventory["Bread"][item] > 0)
-            //    Inventory["Bread"][item] -= 1;
-            //else if (Inventory["Meat"].ContainsKey(item) && Inventory["Meat"][item] > 0)
-            //    Inventory["Meat"][item] -= 1;
-            //else if (Inventory["Cheese"].ContainsKey(item) && Inventory["Cheese"][item] > 0)
-            //    Inventory["Cheese"][item] -= 1;
-            //else if (Inventory["Topping"].ContainsKey(item) && Inventory["Topping"][item] > 0)
-            //    Inventory["Topping"][item] -= 1;
-            //else
-            //    Console.WriteLine("Out of stock"); // PLACEHOLDER
-        }
-
-        public void RestockInventory(int stockQty) // untested
-        {
-            //foreach (string category in Inventory.Keys)
-            //    foreach (InventoryItem inventoryItem in Inventory[category].Keys)
-            //        Inventory[category][inventoryItem] += stockQty;
+            // ???
         }
     }
 }
