@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SubShop
@@ -69,6 +63,7 @@ namespace SubShop
                 ShopSystem.CurrentOrder.CancelOrder();
                 ReflectInventory();
                 orderPanel.Visible = false;
+                ShopSystem.EndCustomerOrder();
                 mainPanel.Visible = true;
             }
             else if (senderButton.Text == "Payment" && orderTotalTextBox.Text != "")
@@ -77,6 +72,11 @@ namespace SubShop
                 paymentDetailsTextBox.Lines = orderTextBox.Lines;
                 paymentTaxTextBox.Text = orderTaxTextBox.Text;
                 paymentTotalTextBox.Text = orderTotalTextBox.Text;
+                ShopSystem.CurrentOrder.Payment.TextBoxClicked(cardNumberTextBox);
+                ShopSystem.CurrentOrder.Payment.SetMessageLabel(paymentMessageLabel);
+                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardNumberTextBox.Name, cardNumberTextBox);
+                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardExpirationTextBox.Name, cardExpirationTextBox);
+                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardCvvTextBox.Name, cardCvvTextBox);
                 orderPanel.Visible = false;
                 paymentPanel.Visible = true;
             }
@@ -174,7 +174,6 @@ namespace SubShop
                 else
                 {
                     ResetButtonColor(orderPanel);
-                    ShopSystem.EndCustomerOrder();
                 }
             }
         }
@@ -195,13 +194,47 @@ namespace SubShop
             }
         }
 
-        private void paymentTextBox_Click(object sender, EventArgs e)
+        private void PaymentNumPad_Click(object sender, EventArgs e)
         {
-            TextBox senderTextBox = (TextBox)sender;
-            String senderTextBoxName = senderTextBox.Name;
+            Button senderButton = (Button)sender;
 
-            if (!ShopSystem.CurrentOrder.Payment.GuiRefs.ContainsKey(senderTextBoxName))
-                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(senderTextBoxName, senderTextBox);
+            switch (senderButton.Text)
+            {
+                case "Del":
+                    if (ShopSystem.CurrentOrder.Payment.LastTextBox.Text.Length > 0)
+                        ShopSystem.CurrentOrder.Payment.LastTextBox.Text =
+                            ShopSystem.CurrentOrder.Payment.LastTextBox.Text.Substring(0,
+                                ShopSystem.CurrentOrder.Payment.LastTextBox.Text.Length - 1);
+                    break;
+                default:
+                    if (ShopSystem.CurrentOrder.Payment.LastTextBox.Text.Length < ShopSystem.CurrentOrder.Payment.LastTextBox.MaxLength)
+                        ShopSystem.CurrentOrder.Payment.LastTextBox.AppendText(senderButton.Text);
+                    break;
+            }
+        }
+
+        private void finalizePayment_Click(object sender, EventArgs e)
+        {
+            ShopSystem.CurrentOrder.Payment.ValidateCardInfo();
+        }
+
+        private void PaymentTextBox_Enter(object sender, EventArgs e)
+        {
+            ShopSystem.CurrentOrder.Payment.TextBoxClicked((TextBox)sender);
+        }
+
+        private void paymentPanel_VisibleChanged(object sender, EventArgs e)
+        {
+            Panel senderPanel = (Panel)sender;
+
+            if (!senderPanel.Visible)
+                mainPanel.Visible = true;
+        }
+
+        private void inventoryPanel_VisibleChanged(object sender, EventArgs e)
+        {
+            if (inventoryPanel.Visible)
+                foreach (ShopInventory.InventoryItem item in SubShopSystem.SystemInventory.Inventory["Bread"].Values)
         }
     }
 }

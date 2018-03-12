@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SubShop
 {
@@ -65,11 +63,6 @@ namespace SubShop
             return string.Format("  {0:C}", orderTotal);
         }
 
-        public void GetPayment()
-        {
-            // ???
-        }
-
         public string[] ToStringArray()
         {
             int sandwichCounter = 0;
@@ -91,17 +84,6 @@ namespace SubShop
                     .Split(','));
             }
             return new string[0];
-        }
-
-        // overrides
-        public override string ToString()
-        {
-            StringBuilder orderString = new StringBuilder();
-
-            foreach (Sandwich sub in CustomerSubs)
-                orderString.Append(sub.ToString() + "\n");
-
-            return orderString.ToString();
         }
     }
 }

@@ -113,12 +113,18 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cardCvvTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.finalizePayment = new System.Windows.Forms.Button();
+            this.paymentMessageLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.paymentTaxTextBox = new System.Windows.Forms.TextBox();
             this.paymentTotalTextBox = new System.Windows.Forms.TextBox();
+            this.inventoryPanel = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.breadInvTextBox = new System.Windows.Forms.TextBox();
             this.orderPanel.SuspendLayout();
             this.breadGroupBox.SuspendLayout();
             this.meatGroupBox.SuspendLayout();
@@ -130,6 +136,8 @@
             this.paymentPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.inventoryPanel.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // orderPanel
@@ -940,6 +948,7 @@
             this.paymentPanel.Size = new System.Drawing.Size(615, 585);
             this.paymentPanel.TabIndex = 2;
             this.paymentPanel.Visible = false;
+            this.paymentPanel.VisibleChanged += new System.EventHandler(this.paymentPanel_VisibleChanged);
             // 
             // button1
             // 
@@ -949,6 +958,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "0";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button2
             // 
@@ -958,6 +968,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "1";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button3
             // 
@@ -967,6 +978,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "2";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button4
             // 
@@ -976,6 +988,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "3";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button5
             // 
@@ -985,6 +998,7 @@
             this.button5.TabIndex = 4;
             this.button5.Text = "4";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button6
             // 
@@ -994,6 +1008,7 @@
             this.button6.TabIndex = 5;
             this.button6.Text = "5";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button7
             // 
@@ -1003,6 +1018,7 @@
             this.button7.TabIndex = 6;
             this.button7.Text = "6";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button8
             // 
@@ -1012,6 +1028,7 @@
             this.button8.TabIndex = 7;
             this.button8.Text = "7";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button9
             // 
@@ -1021,6 +1038,7 @@
             this.button9.TabIndex = 8;
             this.button9.Text = "8";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // button10
             // 
@@ -1030,10 +1048,11 @@
             this.button10.TabIndex = 9;
             this.button10.Text = "9";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.paymentMessageLabel);
             this.groupBox1.Controls.Add(this.cardCvvTextBox);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.cardExpirationTextBox);
@@ -1064,7 +1083,7 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.paymentTaxTextBox);
             this.groupBox3.Controls.Add(this.paymentTotalTextBox);
-            this.groupBox3.Controls.Add(this.button12);
+            this.groupBox3.Controls.Add(this.finalizePayment);
             this.groupBox3.Controls.Add(this.paymentDetailsTextBox);
             this.groupBox3.Location = new System.Drawing.Point(298, 12);
             this.groupBox3.Name = "groupBox3";
@@ -1091,6 +1110,7 @@
             this.button11.TabIndex = 10;
             this.button11.Text = "Del";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.PaymentNumPad_Click);
             // 
             // label4
             // 
@@ -1103,36 +1123,39 @@
             // 
             // cardNumberTextBox
             // 
-            this.cardNumberTextBox.Location = new System.Drawing.Point(138, 23);
+            this.cardNumberTextBox.Location = new System.Drawing.Point(152, 23);
+            this.cardNumberTextBox.MaxLength = 16;
             this.cardNumberTextBox.Name = "cardNumberTextBox";
-            this.cardNumberTextBox.Size = new System.Drawing.Size(135, 21);
+            this.cardNumberTextBox.Size = new System.Drawing.Size(121, 21);
             this.cardNumberTextBox.TabIndex = 12;
-            this.cardNumberTextBox.Click += new System.EventHandler(this.paymentTextBox_Click);
+            this.cardNumberTextBox.Enter += new System.EventHandler(this.PaymentTextBox_Enter);
             // 
             // cardExpirationTextBox
             // 
-            this.cardExpirationTextBox.Location = new System.Drawing.Point(138, 50);
+            this.cardExpirationTextBox.Location = new System.Drawing.Point(152, 50);
+            this.cardExpirationTextBox.MaxLength = 6;
             this.cardExpirationTextBox.Name = "cardExpirationTextBox";
-            this.cardExpirationTextBox.Size = new System.Drawing.Size(136, 21);
+            this.cardExpirationTextBox.Size = new System.Drawing.Size(122, 21);
             this.cardExpirationTextBox.TabIndex = 14;
-            this.cardExpirationTextBox.Click += new System.EventHandler(this.paymentTextBox_Click);
+            this.cardExpirationTextBox.Enter += new System.EventHandler(this.PaymentTextBox_Enter);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 53);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(126, 15);
+            this.label5.Size = new System.Drawing.Size(140, 15);
             this.label5.TabIndex = 13;
-            this.label5.Text = "Expiration(MMYY):";
+            this.label5.Text = "Expiration(MMYYYY):";
             // 
             // cardCvvTextBox
             // 
-            this.cardCvvTextBox.Location = new System.Drawing.Point(138, 77);
+            this.cardCvvTextBox.Location = new System.Drawing.Point(152, 77);
+            this.cardCvvTextBox.MaxLength = 3;
             this.cardCvvTextBox.Name = "cardCvvTextBox";
-            this.cardCvvTextBox.Size = new System.Drawing.Size(136, 21);
+            this.cardCvvTextBox.Size = new System.Drawing.Size(122, 21);
             this.cardCvvTextBox.TabIndex = 16;
-            this.cardCvvTextBox.Click += new System.EventHandler(this.paymentTextBox_Click);
+            this.cardCvvTextBox.Enter += new System.EventHandler(this.PaymentTextBox_Enter);
             // 
             // label6
             // 
@@ -1143,23 +1166,23 @@
             this.label6.TabIndex = 15;
             this.label6.Text = "CVV:";
             // 
-            // button12
+            // finalizePayment
             // 
-            this.button12.Location = new System.Drawing.Point(6, 469);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(292, 85);
-            this.button12.TabIndex = 17;
-            this.button12.Text = "Submit Payment";
-            this.button12.UseVisualStyleBackColor = true;
+            this.finalizePayment.Location = new System.Drawing.Point(6, 469);
+            this.finalizePayment.Name = "finalizePayment";
+            this.finalizePayment.Size = new System.Drawing.Size(292, 85);
+            this.finalizePayment.TabIndex = 17;
+            this.finalizePayment.Text = "Submit Payment";
+            this.finalizePayment.UseVisualStyleBackColor = true;
+            this.finalizePayment.Click += new System.EventHandler(this.finalizePayment_Click);
             // 
-            // label7
+            // paymentMessageLabel
             // 
-            this.label7.Location = new System.Drawing.Point(6, 135);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(264, 21);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Thank you for choosing SubShop!";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.paymentMessageLabel.Location = new System.Drawing.Point(6, 135);
+            this.paymentMessageLabel.Name = "paymentMessageLabel";
+            this.paymentMessageLabel.Size = new System.Drawing.Size(264, 21);
+            this.paymentMessageLabel.TabIndex = 17;
+            this.paymentMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label8
             // 
@@ -1197,11 +1220,71 @@
             this.paymentTotalTextBox.Size = new System.Drawing.Size(75, 22);
             this.paymentTotalTextBox.TabIndex = 27;
             // 
+            // inventoryPanel
+            // 
+            this.inventoryPanel.Controls.Add(this.groupBox4);
+            this.inventoryPanel.Controls.Add(this.groupBox5);
+            this.inventoryPanel.Controls.Add(this.groupBox6);
+            this.inventoryPanel.Controls.Add(this.groupBox2);
+            this.inventoryPanel.Location = new System.Drawing.Point(30, 30);
+            this.inventoryPanel.Name = "inventoryPanel";
+            this.inventoryPanel.Size = new System.Drawing.Size(835, 575);
+            this.inventoryPanel.TabIndex = 3;
+            this.inventoryPanel.Visible = false;
+            this.inventoryPanel.VisibleChanged += new System.EventHandler(this.inventoryPanel_VisibleChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.breadInvTextBox);
+            this.groupBox2.Location = new System.Drawing.Point(8, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 407);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Bread";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Location = new System.Drawing.Point(214, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 407);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Meat";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(420, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(200, 407);
+            this.groupBox5.TabIndex = 0;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Cheese";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Location = new System.Drawing.Point(626, 3);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(200, 407);
+            this.groupBox6.TabIndex = 0;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Toppings";
+            // 
+            // breadInvTextBox
+            // 
+            this.breadInvTextBox.Location = new System.Drawing.Point(6, 19);
+            this.breadInvTextBox.Multiline = true;
+            this.breadInvTextBox.Name = "breadInvTextBox";
+            this.breadInvTextBox.ReadOnly = true;
+            this.breadInvTextBox.Size = new System.Drawing.Size(188, 382);
+            this.breadInvTextBox.TabIndex = 0;
+            // 
             // SubShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 736);
+            this.Controls.Add(this.inventoryPanel);
             this.Controls.Add(this.paymentPanel);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.orderPanel);
@@ -1225,6 +1308,9 @@
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.inventoryPanel.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1309,8 +1395,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button finalizePayment;
+        private System.Windows.Forms.Label paymentMessageLabel;
         private System.Windows.Forms.TextBox cardCvvTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox cardExpirationTextBox;
@@ -1322,6 +1408,12 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox paymentTaxTextBox;
         private System.Windows.Forms.TextBox paymentTotalTextBox;
+        private System.Windows.Forms.Panel inventoryPanel;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox breadInvTextBox;
     }
 }
 
