@@ -28,6 +28,8 @@ namespace SubShop
             orderTextBox.Lines = ShopSystem
                 .CurrentOrder
                 .ToStringArray();
+            orderTaxTextBox.Text = ShopSystem.CurrentOrder.GetOrderTax();
+            orderTotalTextBox.Text = ShopSystem.CurrentOrder.GetOrderTotal();
         }
 
         private void ResetButtonColor(Panel targetPanel)
@@ -56,6 +58,7 @@ namespace SubShop
                 ReflectInventory();
                 ResetButtonColor((Panel)senderButton.Parent.Parent);
                 sandwichTextBox.Clear();
+                sandwichTotalTextBox.Clear();
                 UpdateOrderTextBox();
                 ShopSystem
                     .CurrentOrder
@@ -65,8 +68,17 @@ namespace SubShop
             {
                 ShopSystem.CurrentOrder.CancelOrder();
                 ReflectInventory();
-                //ShopSystem.CurrentOrder.DebugInventory(); // inserted debug
                 orderPanel.Visible = false;
+                mainPanel.Visible = true;
+            }
+            else if (senderButton.Text == "Payment" && orderTotalTextBox.Text != "")
+            {
+                ReflectInventory();
+                paymentDetailsTextBox.Lines = orderTextBox.Lines;
+                paymentTaxTextBox.Text = orderTaxTextBox.Text;
+                paymentTotalTextBox.Text = orderTotalTextBox.Text;
+                orderPanel.Visible = false;
+                paymentPanel.Visible = true;
             }
         }
         
@@ -97,6 +109,7 @@ namespace SubShop
                 .CurrentOrder
                 .CurrentSub
                 .ToStringArray();
+            sandwichTotalTextBox.Text = string.Format("  {0:C}", ShopSystem.CurrentOrder.CurrentSub.SubPrice);
         }
 
         private void BreadButton_Click(object sender, EventArgs e)
@@ -151,17 +164,17 @@ namespace SubShop
             {
                 if (orderPanel.Visible)
                 {
-                    mainPanel.Visible = false;
                     ShopSystem.GetCustomerOrder();
                     ReflectInventory();
                     sandwichTextBox.Clear();
                     orderTextBox.Clear();
+                    orderTaxTextBox.Clear();
+                    orderTotalTextBox.Clear();
                 }
                 else
                 {
                     ResetButtonColor(orderPanel);
                     ShopSystem.EndCustomerOrder();
-                    mainPanel.Visible = true;
                 }
             }
         }
@@ -180,6 +193,15 @@ namespace SubShop
                     Console.WriteLine("View Inventory");
                     break;
             }
+        }
+
+        private void paymentTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox senderTextBox = (TextBox)sender;
+            String senderTextBoxName = senderTextBox.Name;
+
+            if (!ShopSystem.CurrentOrder.Payment.GuiRefs.ContainsKey(senderTextBoxName))
+                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(senderTextBoxName, senderTextBox);
         }
     }
 }
