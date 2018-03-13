@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace SubShop
@@ -189,7 +190,8 @@ namespace SubShop
                     orderPanel.Visible = true;
                     break;
                 case "View Inventory":
-                    Console.WriteLine("View Inventory");
+                    mainPanel.Visible = false;
+                    inventoryPanel.Visible = true;
                     break;
             }
         }
@@ -233,8 +235,38 @@ namespace SubShop
 
         private void inventoryPanel_VisibleChanged(object sender, EventArgs e)
         {
+            StringBuilder inventoryString = new StringBuilder();
+
             if (inventoryPanel.Visible)
+            {
                 foreach (ShopInventory.InventoryItem item in SubShopSystem.SystemInventory.Inventory["Bread"].Values)
+                    inventoryString.Append(string.Format("{0,-17}", item.ItemName) + string.Format("{0,8},", item.ItemQty));
+                breadInvTextBox.Lines = inventoryString.ToString().Remove(0, 27).Trim(',').Split(',');
+                inventoryString.Clear();
+                foreach (ShopInventory.InventoryItem item in SubShopSystem.SystemInventory.Inventory["Meat"].Values)
+                    inventoryString.Append(string.Format("{0,-17}", item.ItemName) + string.Format("{0,8},", item.ItemQty));
+                meatInvTextBox.Lines = inventoryString.ToString().Remove(0, 27).Trim(',').Split(',');
+                inventoryString.Clear();
+                foreach (ShopInventory.InventoryItem item in SubShopSystem.SystemInventory.Inventory["Cheese"].Values)
+                    inventoryString.Append(string.Format("{0,-17}", item.ItemName) + string.Format("{0,8},", item.ItemQty));
+                cheeseInvTextBox.Lines = inventoryString.ToString().Remove(0, 27).Trim(',').Split(',');
+                inventoryString.Clear();
+                foreach (ShopInventory.InventoryItem item in SubShopSystem.SystemInventory.Inventory["Topping"].Values)
+                    inventoryString.Append(string.Format("{0,-17}", item.ItemName) + string.Format("{0,8},", item.ItemQty));
+                toppingInvTextBox.Lines = inventoryString.ToString().Remove(0, 27).Trim(',').Split(',');
+                inventoryString.Clear();
+            }
+            else
+                foreach (Control group in inventoryPanel.Controls)
+                    if (group is GroupBox)
+                        foreach (TextBox inventory in group.Controls)
+                            inventory.Clear();
+        }
+
+        private void inventoryMainButton_Click(object sender, EventArgs e)
+        {
+            mainPanel.Visible = true;
+            inventoryPanel.Visible = false;
         }
     }
 }
