@@ -48,9 +48,7 @@ namespace SubShop
 
             // if card number valid, get card number, else message
             if (GuiRefs["cardNumberTextBox"].Text.Length == 16 && ValidCardStarts.Contains(GuiRefs["cardNumberTextBox"].Text.Substring(0, 4)))
-            {
                 CardNumber = GuiRefs["cardNumberTextBox"].Text;
-            }
             else
             {
                 MessageLabel.Text = "Invalid Card Number.";

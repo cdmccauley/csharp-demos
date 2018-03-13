@@ -18,6 +18,7 @@ namespace SubShop
         }
 
         // methods
+        // updates order panel order detail textbox
         private void UpdateOrderTextBox()
         {
             orderTextBox.Lines = ShopSystem.CurrentOrder.ToStringArray();
@@ -25,6 +26,7 @@ namespace SubShop
             orderTotalTextBox.Text = ShopSystem.CurrentOrder.GetOrderTotal();
         }
 
+        // resets order panel button colors
         private void ResetButtonColor(Panel targetPanel)
         {
             foreach (GroupBox group in targetPanel.Controls)
@@ -33,50 +35,7 @@ namespace SubShop
                         control.BackColor = SystemColors.ControlLight;
         }
 
-        private void OrderButton_Click(object sender, EventArgs e)
-        {
-            Button senderButton = (Button)sender;
-
-            if (senderButton.Text == "Cancel Sandwich")
-            {
-                ResetButtonColor((Panel)senderButton.Parent.Parent);
-                sandwichTextBox.Clear();
-                ShopSystem.CurrentOrder.StartSandwich();
-            }
-            else if (senderButton.Text == "Add Sandwich" && ShopSystem.CurrentOrder.CurrentSub.SubPrice > 0.00M)
-            {
-                ShopSystem.CurrentOrder.EndSandwich();
-                ReflectInventory();
-                ResetButtonColor((Panel)senderButton.Parent.Parent);
-                sandwichTextBox.Clear();
-                sandwichTotalTextBox.Clear();
-                UpdateOrderTextBox();
-                ShopSystem.CurrentOrder.StartSandwich();
-            }
-            else if (senderButton.Text == "Cancel Order")
-            {
-                ShopSystem.CurrentOrder.CancelOrder();
-                ReflectInventory();
-                orderPanel.Visible = false;
-                ShopSystem.EndCustomerOrder();
-                mainPanel.Visible = true;
-            }
-            else if (senderButton.Text == "Payment" && orderTotalTextBox.Text != "")
-            {
-                ReflectInventory();
-                paymentDetailsTextBox.Lines = orderTextBox.Lines;
-                paymentTaxTextBox.Text = orderTaxTextBox.Text;
-                paymentTotalTextBox.Text = orderTotalTextBox.Text;
-                ShopSystem.CurrentOrder.Payment.TextBoxClicked(cardNumberTextBox);
-                ShopSystem.CurrentOrder.Payment.SetMessageLabel(paymentMessageLabel);
-                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardNumberTextBox.Name, cardNumberTextBox);
-                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardExpirationTextBox.Name, cardExpirationTextBox);
-                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardCvvTextBox.Name, cardCvvTextBox);
-                orderPanel.Visible = false;
-                paymentPanel.Visible = true;
-            }
-        }
-        
+        // toggles selection color indicator for order panel buttons
         private void ToggleButtonColor(Button sender)
         {
             Button senderButton = sender;
@@ -86,40 +45,14 @@ namespace SubShop
                 : senderButton.BackColor = SystemColors.ControlLight;
         }
 
-        private void IngredientButton_Click(object sender, EventArgs e)
-        {
-            Button senderButton = (Button)sender;
-
-            ToggleButtonColor((Button)sender);
-            ShopSystem.CurrentOrder.CurrentSub.BuildSub(senderButton.Text);
-            UpdateSandwichTextBox();
-        }
-
+        // updates order panel sandwich textbox
         private void UpdateSandwichTextBox()
         {
             sandwichTextBox.Lines = ShopSystem.CurrentOrder.CurrentSub.ToStringArray();
             sandwichTotalTextBox.Text = string.Format("  {0:C}", ShopSystem.CurrentOrder.CurrentSub.SubPrice);
         }
 
-        private void BreadButton_Click(object sender, EventArgs e)
-        {
-            Button senderButton = (Button)sender;
-
-            foreach (Button button in breadGroupBox.Controls)
-                if (button.Name == senderButton.Name)
-                {
-                    if (button.BackColor == SystemColors.ControlLight)
-                        button.BackColor = Color.Green;
-                    else
-                        button.BackColor = SystemColors.ControlLight;
-                }
-                else
-                    button.BackColor = SystemColors.ControlLight;
-
-            ShopSystem.CurrentOrder.CurrentSub.BuildSub(senderButton.Text);
-            UpdateSandwichTextBox();
-        }
-
+        // restricts or frees order panel button access depending on inventory level
         private void ReflectInventory()
         {
             string[] outOfStock = SubShopSystem.SystemInventory.GetOutOfStock();
@@ -142,6 +75,7 @@ namespace SubShop
             }
         }
 
+        // event listeners
         private void orderPanel_VisibleChanged(object sender, EventArgs e)
         {
             if (ShopSystem != null)
@@ -162,6 +96,7 @@ namespace SubShop
             }
         }
 
+        // handles main panel button clicks
         private void MainButton_Click(object sender, EventArgs e)
         {
             Button senderButton = (Button)sender;
@@ -179,6 +114,7 @@ namespace SubShop
             }
         }
 
+        // handles payment panel numpad functionality
         private void PaymentNumPad_Click(object sender, EventArgs e)
         {
             Button senderButton = (Button)sender;
@@ -198,16 +134,19 @@ namespace SubShop
             }
         }
 
+        // submits payment information for validation
         private void finalizePayment_Click(object sender, EventArgs e)
         {
             ShopSystem.CurrentOrder.Payment.ValidateCardInfo();
         }
 
+        // stores reference to most recent payment detail text box to be interacted with
         private void PaymentTextBox_Enter(object sender, EventArgs e)
         {
             ShopSystem.CurrentOrder.Payment.TextBoxClicked((TextBox)sender);
         }
 
+        // prepares inventory panel components for viewing
         private void inventoryPanel_VisibleChanged(object sender, EventArgs e)
         {
             StringBuilder inventoryString = new StringBuilder();
@@ -241,11 +180,88 @@ namespace SubShop
             }
         }
 
+        // handles returning to main panel from inventory panel
         private void inventoryMainButton_Click(object sender, EventArgs e)
         {
             mainPanel.Visible = true;
             paymentSuccessLabel.Visible = false;
             inventoryPanel.Visible = false;
+        }
+
+        // handles order panel order group button clicks
+        private void OrderButton_Click(object sender, EventArgs e)
+        {
+            Button senderButton = (Button)sender;
+
+            if (senderButton.Text == "Cancel Sandwich")
+            {
+                ResetButtonColor((Panel)senderButton.Parent.Parent);
+                sandwichTextBox.Clear();
+                ShopSystem.CurrentOrder.StartSandwich();
+            }
+            else if (senderButton.Text == "Add Sandwich" && ShopSystem.CurrentOrder.CurrentSub.SubPrice > 0.00M)
+            {
+                ShopSystem.CurrentOrder.EndSandwich();
+                ReflectInventory();
+                ResetButtonColor((Panel)senderButton.Parent.Parent);
+                sandwichTextBox.Clear();
+                sandwichTotalTextBox.Clear();
+                UpdateOrderTextBox();
+                ShopSystem.CurrentOrder.StartSandwich();
+            }
+            else if (senderButton.Text == "Cancel Order")
+            {
+                ShopSystem.CurrentOrder.CancelOrder();
+                ReflectInventory();
+                orderPanel.Visible = false;
+                ShopSystem.EndCustomerOrder();
+                mainPanel.Visible = true;
+            }
+            else if (senderButton.Text == "Payment" && orderTotalTextBox.Text != "")
+            {
+                ReflectInventory();
+                paymentMessageLabel.Text = "";
+                paymentDetailsTextBox.Lines = orderTextBox.Lines;
+                paymentTaxTextBox.Text = orderTaxTextBox.Text;
+                paymentTotalTextBox.Text = orderTotalTextBox.Text;
+                ShopSystem.CurrentOrder.Payment.TextBoxClicked(cardNumberTextBox);
+                ShopSystem.CurrentOrder.Payment.SetMessageLabel(paymentMessageLabel);
+                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardNumberTextBox.Name, cardNumberTextBox);
+                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardExpirationTextBox.Name, cardExpirationTextBox);
+                ShopSystem.CurrentOrder.Payment.GuiRefs.Add(cardCvvTextBox.Name, cardCvvTextBox);
+                orderPanel.Visible = false;
+                paymentPanel.Visible = true;
+            }
+        }
+
+        // handles order panel item selection
+        private void IngredientButton_Click(object sender, EventArgs e)
+        {
+            Button senderButton = (Button)sender;
+
+            ToggleButtonColor((Button)sender);
+            ShopSystem.CurrentOrder.CurrentSub.BuildSub(senderButton.Text);
+            UpdateSandwichTextBox();
+        }
+
+        // handles order panel bread item selection
+        private void BreadButton_Click(object sender, EventArgs e)
+        {
+            Button senderButton = (Button)sender;
+
+            foreach (Button button in breadGroupBox.Controls)
+                if (button.Name == senderButton.Name)
+                {
+                    if (button.BackColor == SystemColors.ControlLight)
+                        button.BackColor = Color.Green;
+                    else
+                        button.BackColor = SystemColors.ControlLight;
+                }
+                else
+                    button.BackColor = SystemColors.ControlLight;
+
+            ShopSystem.CurrentOrder.CurrentSub.BuildSub(senderButton.Text);
+            UpdateSandwichTextBox();
         }
     }
 }
