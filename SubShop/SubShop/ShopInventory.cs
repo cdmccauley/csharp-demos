@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SubShop
 {
@@ -117,6 +115,7 @@ namespace SubShop
         }
 
         // methods
+        // return out of stock items
         public string[] GetOutOfStock()
         {
             StringBuilder outOfStockItems = new StringBuilder();
@@ -128,19 +127,10 @@ namespace SubShop
 
             if (!(outOfStockItems.ToString() == string.Empty))
             {
-                Console.WriteLine(outOfStockItems.ToString()); // DEBUG
-                return outOfStockItems
-                    .ToString()
-                    .Trim(',')
-                    .Split(',');
+                return outOfStockItems.ToString().Trim(',').Split(',');
             }
             else
                 return new string[0];
-        }
-
-        public void RestockInventory(int stockQty)
-        {
-            // ???
         }
     }
 }

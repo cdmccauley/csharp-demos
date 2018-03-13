@@ -40,6 +40,7 @@ namespace SubShop
         }
 
         // methods
+        // loads and unloads sandwich variables during runtime
         public void BuildSub(string ingredient)
         {
             if (IngredientSource.Inventory["Bread"].ContainsKey(ingredient))
@@ -87,6 +88,7 @@ namespace SubShop
             }
         }
 
+        // consumes ingredients used to make a sandwich
         public void UseIngredients()
         {
             Bread.UseItem();
@@ -98,6 +100,7 @@ namespace SubShop
                 ingredient.UseItem();
         }
 
+        // restores ingredients that were never ordered
         public void UndoUseIngredients()
         {
             Bread.UndoUseItem();
@@ -109,6 +112,7 @@ namespace SubShop
                 ingredient.UndoUseItem();
         }
 
+        // returns the price of a sandwich
         private decimal GetSubPrice()
         {
             decimal sandwichPrice = 0.00M;
@@ -124,6 +128,7 @@ namespace SubShop
             return sandwichPrice;
         }
 
+        // provides sandwich details for sandwiches in an order
         public string OrderTextBoxHelper()
         {
             StringBuilder helperString = new StringBuilder();
@@ -148,37 +153,30 @@ namespace SubShop
             return helperString.ToString();
         }
 
+        // provides sandwich details for the customer order screen
         public string[] ToStringArray()
         {
             StringBuilder sandwichString = new StringBuilder();
 
             sandwichString.Append("Bread:,");
-            sandwichString.Append(String.Format("  {0,-25}{1},",
-                Bread.ItemName,
-                Bread.ItemPrice));
+            sandwichString.Append(String.Format("  {0,-25}{1},", Bread.ItemName, Bread.ItemPrice));
 
             sandwichString.Append("Meat:,");
             foreach (ShopInventory.InventoryItem meatIngredient in Meat)
-                sandwichString.Append(String.Format("  {0,-25}{1},",
-                    meatIngredient.ItemName,
+                sandwichString.Append(String.Format("  {0,-25}{1},", meatIngredient.ItemName, 
                     meatIngredient.ItemPrice));
 
             sandwichString.Append("Cheese:,");
             foreach (ShopInventory.InventoryItem cheeseIngredient in Cheese)
-                sandwichString.Append(String.Format("  {0,-25}{1},",
-                    cheeseIngredient.ItemName,
+                sandwichString.Append(String.Format("  {0,-25}{1},", cheeseIngredient.ItemName, 
                     cheeseIngredient.ItemPrice));
 
             sandwichString.Append("Toppings:,");
             foreach (ShopInventory.InventoryItem toppingsIngredient in Toppings)
-                sandwichString.Append(String.Format("  {0,-25}{1},",
-                    toppingsIngredient.ItemName,
+                sandwichString.Append(String.Format("  {0,-25}{1},", toppingsIngredient.ItemName, 
                     toppingsIngredient.ItemPrice));
 
-            return sandwichString
-                .ToString()
-                .Trim()
-                .Split(',');
+            return sandwichString.ToString().Trim().Split(',');
         }
     }
 }

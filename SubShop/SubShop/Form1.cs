@@ -20,9 +20,7 @@ namespace SubShop
         // methods
         private void UpdateOrderTextBox()
         {
-            orderTextBox.Lines = ShopSystem
-                .CurrentOrder
-                .ToStringArray();
+            orderTextBox.Lines = ShopSystem.CurrentOrder.ToStringArray();
             orderTaxTextBox.Text = ShopSystem.CurrentOrder.GetOrderTax();
             orderTotalTextBox.Text = ShopSystem.CurrentOrder.GetOrderTotal();
         }
@@ -43,9 +41,7 @@ namespace SubShop
             {
                 ResetButtonColor((Panel)senderButton.Parent.Parent);
                 sandwichTextBox.Clear();
-                ShopSystem
-                    .CurrentOrder
-                    .StartSandwich();
+                ShopSystem.CurrentOrder.StartSandwich();
             }
             else if (senderButton.Text == "Add Sandwich" && ShopSystem.CurrentOrder.CurrentSub.SubPrice > 0.00M)
             {
@@ -55,9 +51,7 @@ namespace SubShop
                 sandwichTextBox.Clear();
                 sandwichTotalTextBox.Clear();
                 UpdateOrderTextBox();
-                ShopSystem
-                    .CurrentOrder
-                    .StartSandwich();
+                ShopSystem.CurrentOrder.StartSandwich();
             }
             else if (senderButton.Text == "Cancel Order")
             {
@@ -97,19 +91,13 @@ namespace SubShop
             Button senderButton = (Button)sender;
 
             ToggleButtonColor((Button)sender);
-            ShopSystem
-                .CurrentOrder
-                .CurrentSub
-                .BuildSub(senderButton.Text);
+            ShopSystem.CurrentOrder.CurrentSub.BuildSub(senderButton.Text);
             UpdateSandwichTextBox();
         }
 
         private void UpdateSandwichTextBox()
         {
-            sandwichTextBox.Lines = ShopSystem
-                .CurrentOrder
-                .CurrentSub
-                .ToStringArray();
+            sandwichTextBox.Lines = ShopSystem.CurrentOrder.CurrentSub.ToStringArray();
             sandwichTotalTextBox.Text = string.Format("  {0:C}", ShopSystem.CurrentOrder.CurrentSub.SubPrice);
         }
 
@@ -128,18 +116,13 @@ namespace SubShop
                 else
                     button.BackColor = SystemColors.ControlLight;
 
-            ShopSystem
-                .CurrentOrder
-                .CurrentSub
-                .BuildSub(senderButton.Text);
+            ShopSystem.CurrentOrder.CurrentSub.BuildSub(senderButton.Text);
             UpdateSandwichTextBox();
         }
 
         private void ReflectInventory()
         {
-            string[] outOfStock = SubShopSystem
-                .SystemInventory
-                .GetOutOfStock();
+            string[] outOfStock = SubShopSystem.SystemInventory.GetOutOfStock();
 
             if (!(outOfStock.Length == 0))
             {
@@ -183,14 +166,14 @@ namespace SubShop
         {
             Button senderButton = (Button)sender;
 
+            paymentFailLabel.Visible = false;
+            mainPanel.Visible = false;
             switch (senderButton.Text)
             {
                 case "Begin Order":
-                    mainPanel.Visible = false;
                     orderPanel.Visible = true;
                     break;
                 case "View Inventory":
-                    mainPanel.Visible = false;
                     inventoryPanel.Visible = true;
                     break;
             }
@@ -225,14 +208,6 @@ namespace SubShop
             ShopSystem.CurrentOrder.Payment.TextBoxClicked((TextBox)sender);
         }
 
-        private void paymentPanel_VisibleChanged(object sender, EventArgs e)
-        {
-            Panel senderPanel = (Panel)sender;
-
-            if (!senderPanel.Visible)
-                mainPanel.Visible = true;
-        }
-
         private void inventoryPanel_VisibleChanged(object sender, EventArgs e)
         {
             StringBuilder inventoryString = new StringBuilder();
@@ -257,15 +232,19 @@ namespace SubShop
                 inventoryString.Clear();
             }
             else
+            {
                 foreach (Control group in inventoryPanel.Controls)
                     if (group is GroupBox)
                         foreach (TextBox inventory in group.Controls)
                             inventory.Clear();
+                paymentSuccessLabel.Visible = false;
+            }
         }
 
         private void inventoryMainButton_Click(object sender, EventArgs e)
         {
             mainPanel.Visible = true;
+            paymentSuccessLabel.Visible = false;
             inventoryPanel.Visible = false;
         }
     }

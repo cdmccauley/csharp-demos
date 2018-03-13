@@ -129,6 +129,8 @@
             this.cheeseInvTextBox = new System.Windows.Forms.TextBox();
             this.toppingInvTextBox = new System.Windows.Forms.TextBox();
             this.inventoryMainButton = new System.Windows.Forms.Button();
+            this.paymentSuccessLabel = new System.Windows.Forms.Label();
+            this.paymentFailLabel = new System.Windows.Forms.Label();
             this.orderPanel.SuspendLayout();
             this.sandwichDetailGroupBox.SuspendLayout();
             this.orderDetailGroupBox.SuspendLayout();
@@ -155,7 +157,7 @@
             this.orderPanel.Controls.Add(this.cheeseGroupBox);
             this.orderPanel.Controls.Add(this.meatGroupBox);
             this.orderPanel.Controls.Add(this.breadGroupBox);
-            this.orderPanel.Location = new System.Drawing.Point(0, 0);
+            this.orderPanel.Location = new System.Drawing.Point(12, 10);
             this.orderPanel.Margin = new System.Windows.Forms.Padding(4);
             this.orderPanel.Name = "orderPanel";
             this.orderPanel.Size = new System.Drawing.Size(935, 715);
@@ -919,16 +921,17 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.paymentFailLabel);
             this.mainPanel.Controls.Add(this.viewInventoryButton);
             this.mainPanel.Controls.Add(this.beginOrderButton);
-            this.mainPanel.Location = new System.Drawing.Point(10, 10);
+            this.mainPanel.Location = new System.Drawing.Point(12, 223);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(934, 237);
+            this.mainPanel.Size = new System.Drawing.Size(934, 265);
             this.mainPanel.TabIndex = 1;
             // 
             // viewInventoryButton
             // 
-            this.viewInventoryButton.Location = new System.Drawing.Point(470, 3);
+            this.viewInventoryButton.Location = new System.Drawing.Point(470, 30);
             this.viewInventoryButton.Name = "viewInventoryButton";
             this.viewInventoryButton.Size = new System.Drawing.Size(461, 230);
             this.viewInventoryButton.TabIndex = 1;
@@ -938,7 +941,7 @@
             // 
             // beginOrderButton
             // 
-            this.beginOrderButton.Location = new System.Drawing.Point(3, 3);
+            this.beginOrderButton.Location = new System.Drawing.Point(3, 30);
             this.beginOrderButton.Name = "beginOrderButton";
             this.beginOrderButton.Size = new System.Drawing.Size(461, 230);
             this.beginOrderButton.TabIndex = 0;
@@ -950,12 +953,11 @@
             // 
             this.paymentPanel.Controls.Add(this.groupBox3);
             this.paymentPanel.Controls.Add(this.groupBox1);
-            this.paymentPanel.Location = new System.Drawing.Point(20, 20);
+            this.paymentPanel.Location = new System.Drawing.Point(172, 10);
             this.paymentPanel.Name = "paymentPanel";
             this.paymentPanel.Size = new System.Drawing.Size(615, 585);
             this.paymentPanel.TabIndex = 2;
             this.paymentPanel.Visible = false;
-            this.paymentPanel.VisibleChanged += new System.EventHandler(this.paymentPanel_VisibleChanged);
             // 
             // groupBox3
             // 
@@ -1229,12 +1231,13 @@
             // 
             // inventoryPanel
             // 
+            this.inventoryPanel.Controls.Add(this.paymentSuccessLabel);
             this.inventoryPanel.Controls.Add(this.inventoryMainButton);
             this.inventoryPanel.Controls.Add(this.groupBox4);
             this.inventoryPanel.Controls.Add(this.groupBox5);
             this.inventoryPanel.Controls.Add(this.groupBox6);
             this.inventoryPanel.Controls.Add(this.groupBox2);
-            this.inventoryPanel.Location = new System.Drawing.Point(30, 30);
+            this.inventoryPanel.Location = new System.Drawing.Point(62, 10);
             this.inventoryPanel.Name = "inventoryPanel";
             this.inventoryPanel.Size = new System.Drawing.Size(835, 332);
             this.inventoryPanel.TabIndex = 3;
@@ -1327,6 +1330,26 @@
             this.inventoryMainButton.UseVisualStyleBackColor = true;
             this.inventoryMainButton.Click += new System.EventHandler(this.inventoryMainButton_Click);
             // 
+            // paymentSuccessLabel
+            // 
+            this.paymentSuccessLabel.AutoSize = true;
+            this.paymentSuccessLabel.Location = new System.Drawing.Point(217, 193);
+            this.paymentSuccessLabel.Name = "paymentSuccessLabel";
+            this.paymentSuccessLabel.Size = new System.Drawing.Size(196, 15);
+            this.paymentSuccessLabel.TabIndex = 2;
+            this.paymentSuccessLabel.Text = "Thank you for your payment!";
+            this.paymentSuccessLabel.Visible = false;
+            // 
+            // paymentFailLabel
+            // 
+            this.paymentFailLabel.AutoSize = true;
+            this.paymentFailLabel.Location = new System.Drawing.Point(306, 8);
+            this.paymentFailLabel.Name = "paymentFailLabel";
+            this.paymentFailLabel.Size = new System.Drawing.Size(322, 15);
+            this.paymentFailLabel.TabIndex = 3;
+            this.paymentFailLabel.Text = "Payment failed. The order has been cancelled.";
+            this.paymentFailLabel.Visible = false;
+            // 
             // SubShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1351,12 +1374,14 @@
             this.meatGroupBox.ResumeLayout(false);
             this.breadGroupBox.ResumeLayout(false);
             this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.paymentPanel.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.inventoryPanel.ResumeLayout(false);
+            this.inventoryPanel.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1472,6 +1497,8 @@
         private System.Windows.Forms.TextBox cheeseInvTextBox;
         private System.Windows.Forms.TextBox toppingInvTextBox;
         private System.Windows.Forms.Button inventoryMainButton;
+        private System.Windows.Forms.Label paymentSuccessLabel;
+        private System.Windows.Forms.Label paymentFailLabel;
     }
 }
 

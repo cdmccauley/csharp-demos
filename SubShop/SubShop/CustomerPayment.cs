@@ -42,7 +42,7 @@ namespace SubShop
             // method declarations
             int errorCounter = 0;
 
-            // ready components
+            // ready method components
             ++AttemptCounter;
             MessageLabel.Text = "";
 
@@ -102,8 +102,20 @@ namespace SubShop
             }
 
             // if max attempts reached or no errors, end order
-            if (AttemptCounter == 3 || errorCounter == 0)
+            if (AttemptCounter == 3)
+            {
                 EndPayment();
+                MessageLabel.Parent.Parent.Parent.Controls["mainPanel"].Controls["paymentFailLabel"].Visible = true;
+                MessageLabel.Parent.Parent.Parent.Controls["mainPanel"].Visible = true;
+                MessageLabel.Parent.Parent.Visible = false;
+            }
+            else if (errorCounter == 0)
+            {
+                EndPayment();
+                MessageLabel.Parent.Parent.Parent.Controls["inventoryPanel"].Visible = true;
+                MessageLabel.Parent.Parent.Parent.Controls["inventoryPanel"].Controls["paymentSuccessLabel"].Visible = true;
+                MessageLabel.Parent.Parent.Visible = false;
+            }
         }
 
         // set reference for messages to user
@@ -128,7 +140,6 @@ namespace SubShop
                         TextBox clearing = (TextBox)control;
                         clearing.Clear();
                     }
-            MessageLabel.Parent.Parent.Visible = false;
         }
     }
 }

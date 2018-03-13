@@ -24,23 +24,27 @@ namespace SubShop
         }
 
         // methods
+        // provides a new sandwich
         public void StartSandwich()
         {
             CurrentSub = new Sandwich(InventorySource);
         }
 
+        // uses sandwich ingredients and adds to order
         public void EndSandwich()
         {
             CurrentSub.UseIngredients();
             CustomerSubs.Add(CurrentSub);
         }
 
+        // order was cancelled before any sandwich was ordered
         public void CancelOrder()
         {
             foreach (Sandwich sub in CustomerSubs)
                 sub.UndoUseIngredients();
         }
 
+        // return the tax total for the order
         public string GetOrderTax()
         {
             const decimal TAX_RATE = .045M;
@@ -52,6 +56,7 @@ namespace SubShop
             return string.Format("  {0:C}", taxTotal);
         }
 
+        // return the order total
         public string GetOrderTotal()
         {
             decimal orderTotal = 0.00M;
@@ -63,6 +68,7 @@ namespace SubShop
             return string.Format("  {0:C}", orderTotal);
         }
 
+        // provides string[] for use in text boxes
         public string[] ToStringArray()
         {
             int sandwichCounter = 0;
@@ -78,10 +84,7 @@ namespace SubShop
                         orderSandwich.SubPrice));
                     orderString.Append(orderSandwich.OrderTextBoxHelper());
                 }
-                return (orderString
-                    .ToString()
-                    .Trim()
-                    .Split(','));
+                return (orderString.ToString().Trim().Split(','));
             }
             return new string[0];
         }
